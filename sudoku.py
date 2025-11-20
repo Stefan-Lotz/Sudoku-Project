@@ -1,3 +1,19 @@
+import pygame
+
+
+color_beige = (255, 239, 204)
+color_dark_brown = (36, 27, 20)
+color_light_brown = (173, 106, 57)
+
+
+def main():
+
+
+   pygame.init()
+   screen = pygame.display.set_mode((640, 512))
+   clock = pygame.time.Clock()
+   running = True
+
 def start_screen():
     '''
     sudoku welcome screen.
