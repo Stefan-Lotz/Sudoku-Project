@@ -1,8 +1,38 @@
-import pygame, sys
+import pygame
 
-#frank here, moved init() up so that the other funtions work
-pygame.init()
-screen = pygame.display.set_mode((640, 512))
+def main():
+    pygame.init()
+    screen = pygame.display.set_mode((640, 512))
+    clock = pygame.time.Clock()
+    running = True
+
+    square_size = 32
+    cols = 20
+    rows = 16
+    width = cols * square_size
+    height = rows * square_size
+
+    try:
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+
+            screen.fill(color_beige)
+
+            #thin grid lines
+            for col in range(cols + 1):
+                pygame.draw.line(screen, "gray", (col * square_size, 0), (col * square_size, height), 1)
+            for row in range(rows + 1):
+                pygame.draw.line(screen, "gray", (0, row * square_size), (width, row * square_size), 1)
+
+            #thick grid lines
+
+
+
+    finally:
+        pygame.quit()
+
 
 color_beige = (255, 239, 204)
 color_dark_brown = (36, 27, 20)
@@ -49,10 +79,7 @@ def game_over_screen():
 
 
 
-
-def main():
-
-
-
-    clock = pygame.time.Clock()
-    running = True
+# def main():
+#
+#     clock = pygame.time.Clock()
+#     running = True
