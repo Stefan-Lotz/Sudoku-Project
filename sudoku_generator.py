@@ -25,8 +25,8 @@ class SudokuGenerator:
     def __init__(self, row_length, removed_cells):
         self.row_length = row_length
         self.removed_cells = removed_cells
-        self.board = [[]]
-        self.box_length = math.sqrt(row_length)
+        self.board = [[0 for _ in range(row_length)] for _ in range(row_length)]
+        self.box_length = int(math.sqrt(row_length))
 
     '''
 	Returns a 2D python list of numbers which represents the board
@@ -45,7 +45,10 @@ class SudokuGenerator:
 	Return: None
     '''
     def print_board(self):
-        print(self.board)
+        for r in self.board:
+            for n in r:
+                print(n + " ")
+            print("")
 
     '''
 	Determines if num is contained in the specified row (horizontal) of the board
@@ -58,13 +61,11 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def valid_in_row(self, row, num):
-        is_valid = True
-
         for val in self.board[row]:
             if val == num:
-                is_valid = False
+                return False
 
-        return is_valid
+        return True
 
     '''
 	Determines if num is contained in the specified column (vertical) of the board
@@ -77,13 +78,11 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def valid_in_col(self, col, num):
-        is_valid = True
-
         for r in self.board:
             if r[col] == num:
-                is_valid = False
+                return False
 
-        return is_valid
+        return True
 
     '''
 	Determines if num is contained in the 3x3 box specified on the board
@@ -98,7 +97,11 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def valid_in_box(self, row_start, col_start, num):
-        pass
+        for r in range(3):
+            for c in range(3):
+                if self.board[row_start + r][col_start + c] == num:
+                    return False
+        return True
     
     '''
     Determines if it is valid to enter num at (row, col) in the board
@@ -130,7 +133,15 @@ class SudokuGenerator:
 	Return: None
     '''
     def fill_box(self, row_start, col_start):
-        pass
+        nums = []
+
+        while len(nums) < 9:
+            random_int = random.randrange(1, 10, 1)
+            if random_int not in nums:
+                nums.append(random_int)
+        for r in range(3):
+            for c in range(3):
+                self.board[row_start + r][col_start + c] = nums.pop()
     
     '''
     Fills the three boxes along the main diagonal of the board
