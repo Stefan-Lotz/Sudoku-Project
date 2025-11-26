@@ -47,7 +47,7 @@ class SudokuGenerator:
     def print_board(self):
         for r in self.board:
             for n in r:
-                print(str(n) + " ")
+                print(str(n) + " ", end="")
             print("")
 
     '''
@@ -221,7 +221,14 @@ class SudokuGenerator:
 	Return: None
     '''
     def remove_cells(self):
-        pass
+        num_removed = 0
+        while num_removed < self.removed_cells:
+            col = random.randrange(0, self.row_length)
+            row = random.randrange(0, self.row_length)
+
+            if self.board[row][col] != 0:
+                self.board[row][col] = 0
+                num_removed += 1
 
 '''
 DO NOT CHANGE
