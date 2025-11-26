@@ -47,7 +47,7 @@ class SudokuGenerator:
     def print_board(self):
         for r in self.board:
             for n in r:
-                print(n + " ")
+                print(str(n) + " ")
             print("")
 
     '''
@@ -114,13 +114,15 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def is_valid(self, row, col, num):
-        pass
-        # valid = False
-        #
-        # if self.valid_in_row(self, row, num) && self.valid_in_col(self, col, num) && self.valid_in_box(self, row_start, col_start, num):
-        #     valid = True
-        #
-        # return valid
+        box_row = row // 3
+        box_col = col // 3
+
+        row_start = box_row * 3
+        col_start = box_col * 3
+
+        if self.valid_in_row(row, num) and self.valid_in_col(col, num) and self.valid_in_box(row_start, col_start, num):
+            return True
+        return False
 
     '''
     Fills the specified 3x3 box with values
@@ -151,9 +153,9 @@ class SudokuGenerator:
 	Return: None
     '''
     def fill_diagonal(self):
-        self.fill_box(self, 0, 0)
-        self.fill_box(self, 3, 3)
-        self.fill_box(self, 6, 6)
+        self.fill_box(0, 0)
+        self.fill_box(3, 3)
+        self.fill_box(6, 6)
 
     '''
     DO NOT CHANGE
