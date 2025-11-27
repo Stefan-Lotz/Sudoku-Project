@@ -36,15 +36,15 @@ def main():
 
             #thin grid lines (every cell)
             for col in range(grid_size + 1):
-                pygame.draw.line(screen, "gray", (col * cell_size, 0), (col * cell_size, board_height), 1)
+                pygame.draw.line(screen, color_light_brown, (col * cell_size, 0), (col * cell_size, board_height), 1)
             for row in range(grid_size + 1):
-                pygame.draw.line(screen, "gray", (0, row * cell_size), (board_width, row * cell_size), 1)
+                pygame.draw.line(screen, color_light_brown, (0, row * cell_size), (board_width, row * cell_size), 1)
 
             #thick grid lines (every 3 cells for 3x3 boxes)
             for col in range(0, grid_size + 1, 3):
-                pygame.draw.line(screen, "black", (col * cell_size, 0), (col * cell_size, board_height), 4)
+                pygame.draw.line(screen, color_dark_brown, (col * cell_size, 0), (col * cell_size, board_height), 4)
             for row in range(0, grid_size + 1, 3):
-                pygame.draw.line(screen, "black", (0, row * cell_size), (board_width, row * cell_size), 4)
+                pygame.draw.line(screen, color_dark_brown, (0, row * cell_size), (board_width, row * cell_size), 4)
 
             pygame.display.flip()
             clock.tick(60)
