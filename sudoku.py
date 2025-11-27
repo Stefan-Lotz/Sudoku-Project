@@ -13,13 +13,13 @@ def main():
 
     #sudoku grid settings
     cell_size = 50
-    grid_size = 9  # 9x9 Sudoku grid
+    grid_size = 9
     board_width = cell_size * grid_size
     board_height = cell_size * grid_size
 
     #add small space for buttons at bottom
     window_width = board_width
-    window_height = board_height + 80  # Extra space for buttons
+    window_height = board_height + 80
 
     screen = pygame.display.set_mode((window_width, window_height))
     pygame.display.set_caption("Sudoku")
@@ -34,13 +34,13 @@ def main():
 
             screen.fill(color_beige)
 
-            # thin grid lines (every cell)
+            #thin grid lines (every cell)
             for col in range(grid_size + 1):
                 pygame.draw.line(screen, "gray", (col * cell_size, 0), (col * cell_size, board_height), 1)
             for row in range(grid_size + 1):
                 pygame.draw.line(screen, "gray", (0, row * cell_size), (board_width, row * cell_size), 1)
 
-            # thick grid lines (every 3 cells for 3x3 boxes)
+            #thick grid lines (every 3 cells for 3x3 boxes)
             for col in range(0, grid_size + 1, 3):
                 pygame.draw.line(screen, "black", (col * cell_size, 0), (col * cell_size, board_height), 4)
             for row in range(0, grid_size + 1, 3):
