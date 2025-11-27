@@ -11,15 +11,20 @@ def main():
     title_font = pygame.font.SysFont("Arial", 32)  # placeholder style
     subtitle_font = pygame.font.SysFont("Arial", 20)  # placeholder style
 
-    screen = pygame.display.set_mode((640, 512))
+    #sudoku grid settings
+    cell_size = 50
+    grid_size = 9  # 9x9 Sudoku grid
+    board_width = cell_size * grid_size
+    board_height = cell_size * grid_size
+
+    #add small space for buttons at bottom
+    window_width = board_width
+    window_height = board_height + 80  # Extra space for buttons
+
+    screen = pygame.display.set_mode((window_width, window_height))
+    pygame.display.set_caption("Sudoku")
     clock = pygame.time.Clock()
     running = True
-
-    square_size = 32
-    cols = 20
-    rows = 16
-    width = cols * square_size
-    height = rows * square_size
 
     try:
         while running:
@@ -29,17 +34,17 @@ def main():
 
             screen.fill(color_beige)
 
-            #thin grid lines
-            for col in range(cols + 1):
-                pygame.draw.line(screen, "gray", (col * square_size, 0), (col * square_size, height), 1)
-            for row in range(rows + 1):
-                pygame.draw.line(screen, "gray", (0, row * square_size), (width, row * square_size), 1)
+            # thin grid lines (every cell)
+            for col in range(grid_size + 1):
+                pygame.draw.line(screen, "gray", (col * cell_size, 0), (col * cell_size, board_height), 1)
+            for row in range(grid_size + 1):
+                pygame.draw.line(screen, "gray", (0, row * cell_size), (board_width, row * cell_size), 1)
 
-            #thick grid lines
-            for col in range(0, cols + 1, 3):
-                pygame.draw.line(screen, "black", (col * square_size, 0), (col * square_size, height))
-            for row in range(0, rows + 1, 3):
-                pygame.draw.line(screen, "black", (0, row * square_size), (width, row * square_size), 3)
+            # thick grid lines (every 3 cells for 3x3 boxes)
+            for col in range(0, grid_size + 1, 3):
+                pygame.draw.line(screen, "black", (col * cell_size, 0), (col * cell_size, board_height), 4)
+            for row in range(0, grid_size + 1, 3):
+                pygame.draw.line(screen, "black", (0, row * cell_size), (board_width, row * cell_size), 4)
 
             pygame.display.flip()
             clock.tick(60)
