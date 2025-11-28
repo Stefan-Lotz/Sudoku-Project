@@ -85,13 +85,13 @@ def main():
     def init_grid():
         screen.fill(color_beige)
 
-        # thin grid lines (every cell)
+        #thin grid lines (every cell)
         for col in range(grid_size + 1):
             pygame.draw.line(screen, color_light_brown, (col * cell_size, 0), (col * cell_size, board_height), 1)
         for row in range(grid_size + 1):
             pygame.draw.line(screen, color_light_brown, (0, row * cell_size), (board_width, row * cell_size), 1)
 
-        # thick grid lines (every 3 cells for 3x3 boxes)
+        #thick grid lines (every 3 cells for 3x3 boxes)
         for col in range(0, grid_size + 1, 3):
             pygame.draw.line(screen, color_dark_brown, (col * cell_size, 0), (col * cell_size, board_height), 4)
         for row in range(0, grid_size + 1, 3):
@@ -137,7 +137,7 @@ def main():
 
 
     def game_over_screen():
-        # screen for when user loses w/ restart button
+        #screen for when user loses w/ restart button
         while True:
             screen.fill(color_beige)
 
@@ -145,7 +145,7 @@ def main():
             start_surf = title_font.render("Game Over...", True, color_dark_brown)
             screen.blit(start_surf, (window_width // 2 - start_surf.get_width() // 2, 80))
 
-            # restart button
+            #restart button
             restart_rect = pygame.Rect(window_width // 2 - 100, 240, 200, 50)
             pygame.draw.rect(screen, color_light_brown, restart_rect, border_radius=8)
             restart_text = subtitle_font.render("Restart", True, color_dark_brown)
@@ -162,8 +162,6 @@ def main():
                         start_screen()
                         break
 
-
-
     try:
         start_screen()
         while running:
@@ -171,18 +169,9 @@ def main():
                 if event.type == pygame.QUIT:
                     running = False
 
-
     finally:
         pygame.quit()
 
 if __name__ == "__main__":
     main()
 
-
-
-
-
-# def main():
-#
-#     clock = pygame.time.Clock()
-#     running = True
