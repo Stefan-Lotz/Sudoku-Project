@@ -115,24 +115,21 @@ def main():
         pygame.draw.rect(screen, color_light_brown, reset_rect, border_radius=5)
         pygame.draw.rect(screen, color_dark_brown, reset_rect, 3, border_radius=5)
         reset_text = button_font.render("RESET", True, color_dark_brown)
-        screen.blit(reset_text, (reset_rect.centerx - reset_text.get_width() // 2,
-                                 reset_rect.centery - reset_text.get_height() // 2))
+        screen.blit(reset_text, (reset_rect.centerx - reset_text.get_width() // 2, reset_rect.centery - reset_text.get_height() // 2))
 
         #restart button
         restart_rect = pygame.Rect(start_x + button_width + spacing, button_y, button_width, button_height)
         pygame.draw.rect(screen, color_light_brown, restart_rect, border_radius=5)
         pygame.draw.rect(screen, color_dark_brown, restart_rect, 3, border_radius=5)
         restart_text = button_font.render("RESTART", True, color_dark_brown)
-        screen.blit(restart_text, (restart_rect.centerx - restart_text.get_width() // 2,
-                                   restart_rect.centery - restart_text.get_height() // 2))
+        screen.blit(restart_text, (restart_rect.centerx - restart_text.get_width() // 2, restart_rect.centery - restart_text.get_height() // 2))
 
         #exit button
         exit_rect = pygame.Rect(start_x + (button_width + spacing) * 2, button_y, button_width, button_height)
         pygame.draw.rect(screen, color_light_brown, exit_rect, border_radius=5)
         pygame.draw.rect(screen, color_dark_brown, exit_rect, 3, border_radius=5)
         exit_text = button_font.render("EXIT", True, color_dark_brown)
-        screen.blit(exit_text,
-                    (exit_rect.centerx - exit_text.get_width() // 2, exit_rect.centery - exit_text.get_height() // 2))
+        screen.blit(exit_text,(exit_rect.centerx - exit_text.get_width() // 2, exit_rect.centery - exit_text.get_height() // 2))
 
         return reset_rect, restart_rect, exit_rect
 
