@@ -11,7 +11,7 @@ def main():
 
     title_font = pygame.font.SysFont("Arial", 48)
     subtitle_font = pygame.font.SysFont("Arial", 28)
-    button_font = pygame.font.SysFont("Arial", 16, bold=True)  # Smaller font for buttons
+    button_font = pygame.font.SysFont("Arial", 16, bold=True)
 
     #sudoku grid settings
     cell_size = 50
