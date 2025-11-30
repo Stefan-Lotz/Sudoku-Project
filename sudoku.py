@@ -5,11 +5,13 @@ color_beige = (255, 239, 204)
 color_dark_brown = (36, 27, 20)
 color_light_brown = (173, 106, 57)
 
+
 def main():
     pygame.init()
 
     title_font = pygame.font.SysFont("Arial", 48)
     subtitle_font = pygame.font.SysFont("Arial", 28)
+    button_font = pygame.font.SysFont("Arial", 16, bold=True)  # Smaller font for buttons
 
     #sudoku grid settings
     cell_size = 50
@@ -35,33 +37,34 @@ def main():
 
             #title text
             start_surf = title_font.render("Sudoku!", True, color_dark_brown)
-            screen.blit(start_surf, (window_width//2 - start_surf.get_width()//2, 80))
+            screen.blit(start_surf, (window_width // 2 - start_surf.get_width() // 2, 80))
 
             #difficulty text
             sub_start_surf = subtitle_font.render("Please select difficulty:", True, color_dark_brown)
-            screen.blit(sub_start_surf, (window_width//2 - sub_start_surf.get_width()//2, 160))
-
+            screen.blit(sub_start_surf, (window_width // 2 - sub_start_surf.get_width() // 2, 160))
 
             #difficulty buttons
-            easy_rect = pygame.Rect(window_width//2 - 100, 240, 200, 50)
+            easy_rect = pygame.Rect(window_width // 2 - 100, 240, 200, 50)
             pygame.draw.rect(screen, color_light_brown, easy_rect, border_radius=8)
             easy_text = subtitle_font.render("Easy", True, color_dark_brown)
-            screen.blit(easy_text, (easy_rect.centerx - easy_text.get_width()//2, easy_rect.centery - easy_text.get_height()//2))
+            screen.blit(easy_text, (easy_rect.centerx - easy_text.get_width() // 2,
+                                    easy_rect.centery - easy_text.get_height() // 2))
 
             medium_rect = pygame.Rect(window_width // 2 - 100, 300, 200, 50)
             pygame.draw.rect(screen, color_light_brown, medium_rect, border_radius=8)
             medium_text = subtitle_font.render("Medium", True, color_dark_brown)
-            screen.blit(medium_text, (medium_rect.centerx - medium_text.get_width() // 2, medium_rect.centery - medium_text.get_height() // 2))
+            screen.blit(medium_text, (medium_rect.centerx - medium_text.get_width() // 2,
+                                      medium_rect.centery - medium_text.get_height() // 2))
 
             hard_rect = pygame.Rect(window_width // 2 - 100, 360, 200, 50)
             pygame.draw.rect(screen, color_light_brown, hard_rect, border_radius=8)
             hard_text = subtitle_font.render("Hard", True, color_dark_brown)
-            screen.blit(hard_text, (hard_rect.centerx - hard_text.get_width() // 2, hard_rect.centery - hard_text.get_height() // 2))
+            screen.blit(hard_text, (hard_rect.centerx - hard_text.get_width() // 2,
+                                    hard_rect.centery - hard_text.get_height() // 2))
 
-            #event loop bcs I couldn't get it to work out of the function lol
+            #event loop
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
                     pygame.quit()
                     exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
@@ -81,7 +84,6 @@ def main():
             pygame.display.flip()
             clock.tick(60)
 
-
     def init_grid():
         screen.fill(color_beige)
 
@@ -97,22 +99,65 @@ def main():
         for row in range(0, grid_size + 1, 3):
             pygame.draw.line(screen, color_dark_brown, (0, row * cell_size), (board_width, row * cell_size), 4)
 
-        pygame.display.flip()
-        clock.tick(60)
+    def draw_game_buttons():
+        #draws reset, restart, and exit button below grid
+        button_y = board_height + 15
+        button_width = 100
+        button_height = 50
+        spacing = 25
 
+        #center buttons
+        total_width = (button_width * 3) + (spacing * 2)
+        start_x = (window_width - total_width) // 2
+
+        #reset button
+        reset_rect = pygame.Rect(start_x, button_y, button_width, button_height)
+        pygame.draw.rect(screen, color_light_brown, reset_rect, border_radius=5)
+        pygame.draw.rect(screen, color_dark_brown, reset_rect, 3, border_radius=5)
+        reset_text = button_font.render("RESET", True, color_dark_brown)
+        screen.blit(reset_text, (reset_rect.centerx - reset_text.get_width() // 2,
+                                 reset_rect.centery - reset_text.get_height() // 2))
+
+        #restart button
+        restart_rect = pygame.Rect(start_x + button_width + spacing, button_y, button_width, button_height)
+        pygame.draw.rect(screen, color_light_brown, restart_rect, border_radius=5)
+        pygame.draw.rect(screen, color_dark_brown, restart_rect, 3, border_radius=5)
+        restart_text = button_font.render("RESTART", True, color_dark_brown)
+        screen.blit(restart_text, (restart_rect.centerx - restart_text.get_width() // 2,
+                                   restart_rect.centery - restart_text.get_height() // 2))
+
+        #exit button
+        exit_rect = pygame.Rect(start_x + (button_width + spacing) * 2, button_y, button_width, button_height)
+        pygame.draw.rect(screen, color_light_brown, exit_rect, border_radius=5)
+        pygame.draw.rect(screen, color_dark_brown, exit_rect, 3, border_radius=5)
+        exit_text = button_font.render("EXIT", True, color_dark_brown)
+        screen.blit(exit_text,
+                    (exit_rect.centerx - exit_text.get_width() // 2, exit_rect.centery - exit_text.get_height() // 2))
+
+        return reset_rect, restart_rect, exit_rect
 
     def game_screen(difficulty):
-        init_grid()
         while True:
+            #draw grid w/ buttons
+            init_grid()
+            reset_rect, restart_rect, exit_rect = draw_game_buttons()
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
                     pygame.quit()
                     exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if reset_rect.collidepoint(event.pos):
+                        print(f"Reset clicked - Difficulty: {difficulty}")
+                    elif restart_rect.collidepoint(event.pos):
+                        start_screen()  # go to start screen
+                        return
+                    elif exit_rect.collidepoint(event.pos):
+                        pygame.quit()
+                        exit()
+
             pygame.display.flip()
             clock.tick(60)
-
-
 
     def game_won_screen():
         #screen for when user wins w/ exit button
@@ -120,58 +165,59 @@ def main():
             screen.fill(color_beige)
 
             #text
-            start_surf = title_font.render("You beat Sudoku!", True, color_dark_brown)
-            screen.blit(start_surf, (window_width//2 - start_surf.get_width()//2, 80))
+            won_surf = title_font.render("You beat Sudoku!", True, color_dark_brown)
+            screen.blit(won_surf, (window_width // 2 - won_surf.get_width() // 2, 80))
 
             #exit button
             exit_rect = pygame.Rect(window_width // 2 - 100, 240, 200, 50)
             pygame.draw.rect(screen, color_light_brown, exit_rect, border_radius=8)
             exit_text = subtitle_font.render("Exit", True, color_dark_brown)
-            screen.blit(exit_text, (exit_rect.centerx - exit_text.get_width() // 2, exit_rect.centery - exit_text.get_height() // 2))
+            screen.blit(exit_text, (exit_rect.centerx - exit_text.get_width() // 2,
+                                    exit_rect.centery - exit_text.get_height() // 2))
 
             for event in pygame.event.get():
-                if event.type == pygame.QUIT or event.type == pygame.MOUSEBUTTONDOWN and exit_rect.collidepoint(event.pos):
-                    running = False
+                if event.type == pygame.QUIT or (
+                        event.type == pygame.MOUSEBUTTONDOWN and exit_rect.collidepoint(event.pos)):
                     pygame.quit()
                     exit()
 
+            pygame.display.flip()
+            clock.tick(60)
 
     def game_over_screen():
         #screen for when user loses w/ restart button
         while True:
             screen.fill(color_beige)
 
-            # text
-            start_surf = title_font.render("Game Over...", True, color_dark_brown)
-            screen.blit(start_surf, (window_width // 2 - start_surf.get_width() // 2, 80))
+            #text
+            over_surf = title_font.render("Game Over...", True, color_dark_brown)
+            screen.blit(over_surf, (window_width // 2 - over_surf.get_width() // 2, 80))
 
             #restart button
             restart_rect = pygame.Rect(window_width // 2 - 100, 240, 200, 50)
             pygame.draw.rect(screen, color_light_brown, restart_rect, border_radius=8)
             restart_text = subtitle_font.render("Restart", True, color_dark_brown)
             screen.blit(restart_text, (restart_rect.centerx - restart_text.get_width() // 2,
-                                    restart_rect.centery - restart_text.get_height() // 2))
+                                       restart_rect.centery - restart_text.get_height() // 2))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
                     pygame.quit()
                     exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if restart_rect.collidepoint(event.pos):
                         start_screen()
-                        break
+                        return
+
+            pygame.display.flip()
+            clock.tick(60)
 
     try:
         start_screen()
-        while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
 
     finally:
         pygame.quit()
 
+
 if __name__ == "__main__":
     main()
-
