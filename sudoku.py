@@ -31,19 +31,19 @@ def main():
     running = True
 
     def start_screen():
-        # welcome screen
+        #welcome screen
         while True:
             screen.fill(color_beige)
 
-            # title text
+            #title text
             start_surf = title_font.render("Sudoku!", True, color_dark_brown)
             screen.blit(start_surf, (window_width // 2 - start_surf.get_width() // 2, 80))
 
-            # difficulty text
+            #difficulty text
             sub_start_surf = subtitle_font.render("Please select difficulty:", True, color_dark_brown)
             screen.blit(sub_start_surf, (window_width // 2 - sub_start_surf.get_width() // 2, 160))
 
-            # difficulty buttons
+            #difficulty buttons
             easy_rect = pygame.Rect(window_width // 2 - 100, 240, 200, 50)
             pygame.draw.rect(screen, color_light_brown, easy_rect, border_radius=8)
             easy_text = subtitle_font.render("Easy", True, color_dark_brown)
