@@ -99,6 +99,21 @@ def main():
         for row in range(0, grid_size + 1, 3):
             pygame.draw.line(screen, color_dark_brown, (0, row * cell_size), (board_width, row * cell_size), 4)
 
+    def draw_numbers(board):
+        #draw the numbers on the sudoku board
+        for row in range(grid_size):
+            for col in range(grid_size):
+                num = board[row][col]
+                if num != 0:
+                    #calculate position to center the number in the cell
+                    x = col * cell_size + cell_size // 2
+                    y = row * cell_size + cell_size // 2
+
+                    #draw the number
+                    num_surf = number_font.render(str(num), True, color_dark_brown)
+                    num_rect = num_surf.get_rect(center=(x, y))
+                    screen.blit(num_surf, num_rect)
+
     def draw_game_buttons():
         #draws reset, restart, and exit button below grid
         button_y = board_height + 15
